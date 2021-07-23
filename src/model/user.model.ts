@@ -26,7 +26,7 @@ UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
     // only has the password if it has been modified (or is new)
     if(!user.isModified("password")) return next();
 
-    //
+    // Random additional data
     const salt = await bcrypt.genSalt(config.get("saltWorkFactor"));
 
     const hash = await bcrypt.hashSync(user.password, salt);
@@ -38,6 +38,13 @@ UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
 });
 
 // Used for logging in
+UserSchema.methods.comparePassword = async function (
+    candidatePassword: string
+) {
+    const user = this as UserDocument;
+
+    return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
+};
 
 const User = mongoose.model<UserDocument>("User", UserSchema);
 
