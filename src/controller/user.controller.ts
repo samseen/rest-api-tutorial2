@@ -12,3 +12,15 @@ export async function createUserHandler(req: Request, res: Response) {
         return res.status(409).send(e.message);
     }
 }
+
+export async function createUserSessionHandler(req: Request, res: Response) {
+    // validate the email and password
+
+    // Create a session
+
+    // Create access token
+
+    // Create refresh token
+
+    // Send refresh and access token back
+}
