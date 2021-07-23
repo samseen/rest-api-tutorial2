@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --config nodemon.json src/app.ts"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "config": "^3.3.6",
