@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 import { createUserHandler } from "./controller/user.controller";
-import { createUserSessionHandler, invalidateUserSessionHandler } from "./controller/session.controller";
+import { createUserSessionHandler, invalidateUserSessionHandler, getUserSessionHandler } from "./controller/session.controller";
 import { validateRequest, requiresUser } from "./middleware";
 import { createUserSchema, createUserSessionSchema } from "./schema/user.schema";
 
@@ -18,7 +18,7 @@ export default function(app: Express) {
     );
 
     // Get the user's sessions
-    // GET /api/sessions
+    app.get("/api/sessions", requiresUser, getUserSessionHandler);
 
     // Logout
     app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);

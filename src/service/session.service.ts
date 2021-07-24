@@ -63,3 +63,7 @@ export async function updateSession(
 ) {
     return Session.updateOne(query, update);
 }
+
+export async function findSessions(query: FilterQuery<SessionDocument>) {
+    return Session.find(query).lean();
+}
