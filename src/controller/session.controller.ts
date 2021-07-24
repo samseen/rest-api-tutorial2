@@ -15,17 +15,17 @@ export async function createUserSessionHandler(req: Request, res: Response) {
     // Create a session
     const session = await createSession(user._id, req.get("user-agent") || "");
 
+    // Create access token
     const accessToken = createAccessToken({
         user,
         session,
     });
 
-    // Create access token
-
     // Create refresh token
     const refreshToken = sign(session, {
         expiresIn: config.get("refreshTokenTtl"), // 1 year
-    })
+    });
 
     // Send refresh and access token back
+    return res.send({ accessToken, refreshToken });
 }
