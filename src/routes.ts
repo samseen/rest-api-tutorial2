@@ -22,4 +22,28 @@ export default function(app: Express) {
 
     // Logout
     app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
+
+    // Create a post
+    app.post(
+        "/api/posts",
+        [requiresUser, validateRequest(createPostSchema)],
+        createPostHandler
+    );
+
+    // Update a post
+    app.put(
+        "/api/posts/:postId",
+        [requiresUser, validateRequest(updatePostSchema)],
+        updatePostHandler
+    );
+
+    // Get a post
+    app.get("/api/posts/:postId", getPostHandler);
+
+    // Delete a post
+    app.delete(
+        "/api/posts/:postId",
+        [requiresUser, validateRequest(deletePostSchema)],
+        deletePostHandler
+    );
 }
