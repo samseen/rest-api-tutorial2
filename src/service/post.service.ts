@@ -11,3 +11,11 @@ export function findPost(
 ) {
     return Post.findOne(query, {}, options);
 }
+
+export function findAndUpdate(
+    query: FilterQuery<PostDocument>,
+    update: UpdateQuery<PostDocument>,
+    options: QueryOptions
+) {
+    return Post.findOneAndUpdate(query, update, options);
+}
